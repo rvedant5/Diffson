@@ -1,0 +1,40 @@
+{
+  "user": {
+    "id": 1,
+    "name": "John Smith",
+    "email": "john.smith@example.com",
+    "age": 31,
+    "address": {
+      "street": "123 Main St",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zipcode": "90001",
+      "country": "USA"
+    },
+    "hobbies": ["reading", "gaming", "traveling"],
+    "isActive": true,
+    "settings": {
+      "theme": "light",
+      "notifications": {
+        "email": true,
+        "push": true,
+        "sms": true
+      },
+      "privacy": {
+        "profileVisible": true,
+        "showEmail": true,
+        "showPhone": false
+      }
+    },
+    "premium": true
+  },
+  "metadata": {
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-02-01T09:15:00Z",
+    "version": "2.0"
+  },
+  "analytics": {
+    "loginCount": 42,
+    "lastLogin": "2024-02-01T09:15:00Z"
+  }
+}
