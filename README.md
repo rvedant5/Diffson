@@ -43,6 +43,8 @@ Three comparison modes available via dropdown:
 - 🔄 **Panel Swap** → Instantly switch JSON1 ↔ JSON2
 - 📋 **Copy to Clipboard** → Copy JSON with one click
 - 💾 **Download** → Export parsed/compared JSON
+- 🔗 **Clickable Branding** → Logo and title link to main application
+- ➡️ **Table Row Comparison** → Click arrows in table view to open detailed comparisons in new tabs
 
 ### 7. **Responsive Design**
 - Side-by-side on desktop
@@ -131,6 +133,17 @@ npm run preview
 - Click "Copy" icon to copy JSON to clipboard
 - Click "Download" icon to save JSON as a file
 
+### Table Row Comparison (NEW in v2.0)
+- Click the arrow button (➡️) in any table row's Status column
+- Opens a new tab with detailed comparison of that specific key-value pair
+- Data is automatically pre-loaded for immediate analysis
+- Perfect for drilling down into complex nested differences
+
+### Clickable Branding (NEW in v2.0)
+- Click the Diffson logo or title to navigate to the main application
+- Useful for bookmarking or sharing the application URL
+- Maintains accessibility with keyboard navigation and screen reader support
+
 ## 🎨 Color Legend
 
 | Color | Meaning |
@@ -183,6 +196,8 @@ Tailwind is configured in `tailwind.config.js` with custom content paths for opt
 - Four columns: Key, JSON1, JSON2, Status
 - Status indicators with emojis
 - Sticky header for easy reference
+- **NEW**: Clickable arrow buttons in Status column for detailed row comparisons
+- **NEW**: Opens new tabs with pre-loaded data for focused analysis
 
 ## 🚢 Deployment
 
