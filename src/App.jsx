@@ -331,12 +331,17 @@ const App = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto p-4 md:p-6">
         <header className="mb-6 text-center">
-          <div className="flex items-center justify-center gap-3 mb-2">
+          <a 
+            href="https://diffson.netlify.app"
+            className="inline-flex items-center justify-center gap-3 mb-2 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-2 cursor-pointer"
+            aria-label="Go to Diffson homepage"
+            title="Visit Diffson - JSON Comparison Tool"
+          >
             <FileJson size={48} className="text-blue-600" />
             <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Diffson
             </h1>
-          </div>
+          </a>
           <p className="text-gray-600 text-lg">Parse, compare, and visualize JSON files with ease</p>
         </header>
 
