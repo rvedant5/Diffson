@@ -177,6 +177,26 @@ The project uses Vite for fast development and optimized production builds. Conf
 ### Tailwind CSS
 Tailwind is configured in `tailwind.config.js` with custom content paths for optimal purging.
 
+## � FWhat's New in Release 2.0
+
+### Clickable Branding
+- **Interactive Logo & Title**: Click the Diffson logo or title to navigate to the main application
+- **Accessibility First**: Full keyboard navigation support with focus indicators
+- **Screen Reader Friendly**: Proper ARIA labels and tooltips for assistive technologies
+
+### Table Row Comparison
+- **One-Click Detailed Analysis**: Arrow buttons (➡️) in each table row's Status column
+- **New Tab Workflow**: Opens detailed comparisons in separate tabs for better multitasking
+- **Auto-Population**: Data is automatically loaded using URL parameters - no manual copying required
+- **Smart URL Generation**: Works seamlessly in both development and production environments
+- **Universal Data Support**: Handles all JSON data types (strings, numbers, objects, arrays, null)
+
+### Enhanced User Experience
+- **Seamless Navigation**: Maintain your current work while exploring detailed comparisons
+- **Visual Feedback**: Hover effects and focus states provide clear interaction cues
+- **Error Handling**: Graceful fallbacks ensure the application remains stable
+- **Cross-Browser Compatible**: Tested across modern browsers with consistent behavior
+
 ## 🎯 Features in Detail
 
 ### Tree View
@@ -246,6 +266,12 @@ Provide a simple, fast, and intuitive way to **parse, view, and compare JSON fil
 
 ## 🗺️ Roadmap
 
+### ✅ Completed in v2.0
+- [x] Clickable branding with navigation to main application
+- [x] Table row comparison with new tab functionality
+- [x] URL parameter auto-population for seamless data transfer
+
+### 🚧 Upcoming Features
 - [ ] Add JSON beautification/minification
 - [ ] Support for JSON Schema validation
 - [ ] Export comparison report as PDF/HTML
