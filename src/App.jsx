@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Upload, Search, ChevronDown, ChevronRight, Download, Copy, RefreshCw, X, FileJson } from 'lucide-react';
+import { Upload, Search, ChevronDown, ChevronRight, Download, Copy, RefreshCw, X, FileJson, ArrowRight } from 'lucide-react';
 import _ from 'lodash';
 
 const App = () => {
@@ -43,6 +43,42 @@ const App = () => {
   useEffect(() => {
     parseJSON(json2, setError2, setParsed2);
   }, [json2]);
+
+  // URL parameter parsing for auto-population
+  useEffect(() => {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const json1Param = urlParams.get('json1');
+      const json2Param = urlParams.get('json2');
+      
+      console.log('URL Parameters found:', { json1Param, json2Param }); // Debug log
+      
+      if (json1Param) {
+        try {
+          // Validate JSON before setting
+          JSON.parse(json1Param);
+          setJson1(json1Param);
+          console.log('JSON1 set from URL parameter'); // Debug log
+        } catch (jsonError) {
+          console.error('Invalid JSON1 parameter:', jsonError);
+        }
+      }
+      
+      if (json2Param) {
+        try {
+          // Validate JSON before setting
+          JSON.parse(json2Param);
+          setJson2(json2Param);
+          console.log('JSON2 set from URL parameter'); // Debug log
+        } catch (jsonError) {
+          console.error('Invalid JSON2 parameter:', jsonError);
+        }
+      }
+    } catch (error) {
+      console.error('Error parsing URL parameters:', error);
+      // Silently fail - don't disrupt normal app functionality
+    }
+  }, []); // Run only once on mount
 
   const sortObjectKeys = (obj) => {
     if (Array.isArray(obj)) {
@@ -260,6 +296,40 @@ const App = () => {
     );
   };
 
+  const openComparison = (val1, val2, key) => {
+    try {
+      // Serialize the values to JSON strings
+      const json1Data = val1 !== undefined ? JSON.stringify(val1, null, 2) : '';
+      const json2Data = val2 !== undefined ? JSON.stringify(val2, null, 2) : '';
+      
+      console.log('Opening comparison with data:', { json1Data, json2Data, key }); // Debug log
+      
+      // Use current domain for testing, production domain for deployed version
+      const baseUrl = window.location.hostname === 'localhost' 
+        ? `${window.location.protocol}//${window.location.host}` 
+        : 'https://diffson.netlify.app';
+      
+      const params = new URLSearchParams();
+      
+      if (json1Data) params.append('json1', json1Data);
+      if (json2Data) params.append('json2', json2Data);
+      if (key) params.append('key', key);
+      
+      const comparisonUrl = `${baseUrl}?${params.toString()}`;
+      console.log('Generated URL:', comparisonUrl); // Debug log
+      
+      // Open in new tab
+      window.open(comparisonUrl, '_blank');
+    } catch (error) {
+      console.error('Error opening comparison:', error);
+      // Fallback: open base URL if there's an error
+      const fallbackUrl = window.location.hostname === 'localhost' 
+        ? `${window.location.protocol}//${window.location.host}` 
+        : 'https://diffson.netlify.app';
+      window.open(fallbackUrl, '_blank');
+    }
+  };
+
   const TableView = () => {
     const allKeys = getAllKeys(parsed1, parsed2);
     
@@ -316,7 +386,17 @@ const App = () => {
                   <td className="border border-gray-300 p-3 font-mono text-xs break-all">{val1 !== undefined ? JSON.stringify(val1) : <span className="text-gray-400">-</span>}</td>
                   <td className="border border-gray-300 p-3 font-mono text-xs break-all">{val2 !== undefined ? JSON.stringify(val2) : <span className="text-gray-400">-</span>}</td>
                   <td className={`border border-gray-300 p-3 text-xs ${statusColor}`}>
-                    {statusText}
+                    <div className="flex items-center justify-between">
+                      <span>{statusText}</span>
+                      <button
+                        onClick={() => openComparison(val1, val2, key)}
+                        className="ml-2 p-1 hover:bg-gray-200 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        aria-label={`Compare values for ${key} in new tab`}
+                        title="Open detailed comparison in new tab"
+                      >
+                        <ArrowRight size={16} className="text-blue-600" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               );
@@ -331,12 +411,17 @@ const App = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto p-4 md:p-6">
         <header className="mb-6 text-center">
-          <div className="flex items-center justify-center gap-3 mb-2">
+          <a 
+            href="https://diffson.netlify.app"
+            className="inline-flex items-center justify-center gap-3 mb-2 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-2 cursor-pointer"
+            aria-label="Go to Diffson homepage"
+            title="Visit Diffson - JSON Comparison Tool"
+          >
             <FileJson size={48} className="text-blue-600" />
             <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Diffson
             </h1>
-          </div>
+          </a>
           <p className="text-gray-600 text-lg">Parse, compare, and visualize JSON files with ease</p>
         </header>
 
